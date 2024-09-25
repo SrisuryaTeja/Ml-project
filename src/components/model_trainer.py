@@ -42,10 +42,10 @@ class ModelTrainer:
                 "Decision Tree":DecisionTreeRegressor(),
                 "Gradient Boosting":GradientBoostingRegressor(),
                 "Linear Regression":LinearRegression(),
-                "K-Neighbors Classifier":KNeighborsRegressor(),
-                "XGBClassifier":XGBRegressor(),
-                "CatBoosting Classifier":CatBoostRegressor(verbose=False),
-                "AdaBoost Classifier":AdaBoostRegressor()
+                "K-Neighbour Regressor":KNeighborsRegressor(),
+                "XGBRegressor":XGBRegressor(),
+                "CatBoosting Regressor":CatBoostRegressor(verbose=False),
+                "AdaBoost Regressor":AdaBoostRegressor()
             }
             params={
                 "Decision Tree":{
@@ -80,7 +80,7 @@ class ModelTrainer:
 
                 }
             }
-            model_report:dict=evaluate_models(x_train=x_train,y_train=y_train,x_test=x_test,y_test=y_test,
+            model_report:dict=evaluate_models(X_train=x_train,y_train=y_train,X_test=x_test,y_test=y_test,
                                              models=models,param=params)
             
             best_model_score=max(sorted(model_report.values()))
@@ -95,6 +95,7 @@ class ModelTrainer:
 
             save_object(file_path=self.model_train_config.trained_model_file_path,
                         obj=best_model)
+            print(best_model)
             predicted=best_model.predict(x_test)
 
             r2_square=r2_score(y_test,predicted)
